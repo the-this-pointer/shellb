@@ -21,7 +21,8 @@ void shellb_platform_write(const char* str)
 
 void* shellb_read_thread_func(void* arg)
 {
-  scanf("%s", arg);
+  scanf(" %[^\n]", arg);
+  shellb_g_reading = false;
   shellb_process_cmd();
   pthread_exit(NULL);
 }
