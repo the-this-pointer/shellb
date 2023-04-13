@@ -24,7 +24,7 @@ typedef struct {
 
 typedef struct {
   uint8_t cmd_count;
-  shellb_cmd_t* cmd_list;
+  const shellb_cmd_t* cmd_list;
   void* _next;
 } shellb_cmd_table_t;
 
@@ -38,7 +38,7 @@ void shellb_wait_for_cmd();
 void shellb_process_cmd();
 void shellb_print_header();
 void shellb_print_error(const char* error);
-void sheelb_register_cmd(shellb_cmd_table_t* commands);
+void shellb_register_cmd(shellb_cmd_table_t* commands);
 
 uint8_t shellb_create_argv(argv_t* argv);
 shellb_cmd_t* shellb_get_cmd(const char* name, uint8_t argc);

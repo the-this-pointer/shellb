@@ -1,7 +1,8 @@
 #include "shellb.h"
 #include <stdbool.h>
 
-bool shellb_g_reading = false;
+extern bool shellb_g_reading;
+extern bool shellb_g_command;
 extern char shellb_g_buffer[SHELLB_BUFFER_SIZE];
 
 #if defined(linux) || defined(__linux__) || defined(_WIN32)
@@ -23,16 +24,12 @@ void* shellb_read_thread_func(void* arg)
 {
   scanf(" %[^\n]", arg);
   shellb_g_reading = false;
-  shellb_process_cmd();
+  shellb_g_command = true;
   pthread_exit(NULL);
 }
 
 void shellb_platform_read()
 {
-  if (shellb_g_reading)
-    return;
-  shellb_g_reading = true;
-
   pthread_create(&g_platform_thread_id, NULL, shellb_read_thread_func, shellb_g_buffer);
 }
 
